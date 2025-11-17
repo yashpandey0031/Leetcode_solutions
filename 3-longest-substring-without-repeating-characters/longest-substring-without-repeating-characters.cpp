@@ -1,28 +1,25 @@
 class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
+    public:
+    int lengthOfLongestSubstring(string s){
+        int hashArray[256];
+        fill(hashArray, hashArray+256 , -1);
         int n = s.size();
-        int i = 0;
-        int j = 0;
+        int l = 0;
+        int r = 0;
+        int len;
         int max_length = 0;
-        for( i = 0; i < n ; i++){
-                int hashArray[256] = {0};
-            for(j = i ; j < n ; j++ ){
-                if (hashArray[s[j]] == 1) {
-                    break;                 // character repeated → stop
-                } 
-
-
-                hashArray[s[j]] = 1; //making as seen
-
-                int len = j - i + 1;
-                max_length = max(len,max_length);
-
-
+        while(r<n){
+            if(hashArray[s[r]] != -1){ //checking if hasharray is not empty
+                if(hashArray[s[r]] >= l){
+                    l =hashArray[s[r]] + 1;
+                }
             }
+            len = r - l + 1;
+            max_length = max(len,max_length);
+            hashArray[s[r]] = r;
+            r++;
+
         }
-
         return max_length;
-
     }
 };
