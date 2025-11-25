@@ -13,9 +13,9 @@ public:
             max_area = max(area,max_area);
 
             if(height[i] < height[j]){
-                i++ ;//moving the j pointer towards left 
+                i++ ;
             } else{
-                j--; //move the i pointer towards right 
+                j--;  
             }
         }
 
