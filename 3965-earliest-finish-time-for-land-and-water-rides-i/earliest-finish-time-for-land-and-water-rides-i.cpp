@@ -1,20 +1,24 @@
 class Solution {
 public:
-    int earliestFinishTime(vector<int>& startL, vector<int>& durL, vector<int>& startW, vector<int>& durW) {
-        int minL = 3000, minW = minL, res = minW;
-        int n = startL.size(), m = startW.size();
-
-        for (int i = 0; i < n; i++)
-            minL = min(minL, startL[i] + durL[i]);
-
-        for (int i = 0; i < m; i++) {
-            minW = min(minW, startW[i] + durW[i]);
-            res = min(res, max(minL, startW[i]) + durW[i]);
+    int calc(vector<int>& a1, vector<int>& t1, vector<int>& a2, vector<int>& t2) {
+        // find earliest finish of first ride
+        int minEnd = INT_MAX;
+        for (int i = 0; i < a1.size(); i++) {
+            minEnd = min(minEnd, a1[i] + t1[i]);
         }
 
-        for (int i = 0; i < n; i++)
-            res = min(res, max(minW, startL[i]) + durL[i]);
+        // for each second ride, find earliest finish
+        int ans = INT_MAX;
+        for (int i = 0; i < a2.size(); i++) {
+            ans = min(ans, max(minEnd, a2[i]) + t2[i]);
+        }
+        return ans;
+    }
 
-        return res;
+    int earliestFinishTime(vector<int>& landStartTime, vector<int>& landDuration,
+                           vector<int>& waterStartTime, vector<int>& waterDuration) {
+        int x = calc(landStartTime, landDuration, waterStartTime, waterDuration);
+        int y = calc(waterStartTime, waterDuration, landStartTime, landDuration);
+        return min(x, y);
     }
 };
