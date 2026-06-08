@@ -2,7 +2,7 @@ class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
         for (int i = 0; i < strs[0].size(); i++) {   // column-wise
-            char c = strs[0][i];
+            char c = strs[0][i]; //so here [0] is just for using the very first word only and [i] is loop position in that word 
 
             for (int j = 1; j < strs.size(); j++) { // check all strings
                 if (i >= strs[j].size() || strs[j][i] != c) {
