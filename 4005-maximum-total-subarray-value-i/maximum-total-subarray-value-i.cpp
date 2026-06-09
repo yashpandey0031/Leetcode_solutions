@@ -3,7 +3,7 @@ public:
     long long maxTotalValue(vector<int>& nums, int k) {
         int maxEL  = INT_MIN;
         int minEL = INT_MAX;
-        for(int &num:nums){
+        for(int num:nums){
             maxEL = max(maxEL,num);
             minEL = min(minEL,num);
         }
