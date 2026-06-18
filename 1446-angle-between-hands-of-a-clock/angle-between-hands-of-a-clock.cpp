@@ -1,8 +1,6 @@
 class Solution {
 public:
-    double angleClock(int hour, int minutes) {
-        double x = hour + minutes / 60.0;
-        double diff = fmod(11.0 * x, 12.0);
-        return min(diff, 12.0 - diff) * 30.0;
+    double angleClock(int h, int m) {
+        return acos(cos((330 * h + 5.5 * m) * 0.0174532925)) * 57.2957795;
     }
 };
