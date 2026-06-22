@@ -11,21 +11,12 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        ListNode* temp = head;
-        int count = 0;
-        while(temp != nullptr){
-            count++;
-            temp =  temp -> next;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast  != nullptr && fast -> next != nullptr){ //means the first condition where we have odd number of pointers
+                slow = slow -> next;
+                fast = fast -> next -> next;
         }
-
-        int middleNode = (count / 2) + 1;
-        temp = head;
-        while(temp != nullptr){
-            middleNode = middleNode - 1;
-            if(middleNode == 0 ) break;
-            temp = temp -> next;
-        }
-        return temp;
-        
+        return slow ;
     }
 };
