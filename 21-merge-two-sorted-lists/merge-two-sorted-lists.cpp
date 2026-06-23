@@ -1,38 +1,41 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        //listnode* contains the head of first list which means we have access to the whole list 
-        ListNode* dummy = new ListNode(0);
-        ListNode* cur = dummy;
 
-        while(list1 && list2){
-            if(list1 -> val > list2 -> val){
-                cur->next = list2;
-                list2 = list2->next;
-            } else{
-                cur -> next = list1;
-                list1 = list1->next;
-            
-            }
-            cur = cur -> next;
+    ListNode* convertarr2ll(vector<int>& arr) {
 
+        if(arr.empty()) return nullptr;
+
+        ListNode* head = new ListNode(arr[0]);
+        ListNode* mover = head;
+
+        for(int i = 1; i < arr.size(); i++) {
+            ListNode* temp = new ListNode(arr[i]);
+            mover->next = temp;
+            mover = temp;
         }
 
-        cur -> next = list1 ? list1 : list2;
-
-        ListNode* head = dummy -> next;
-        delete dummy;
         return head;
-        
+    }
+
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+
+        vector<int> arr;
+
+        ListNode* temp1 = list1;
+        ListNode* temp2 = list2;
+
+        while(temp1 != nullptr) {
+            arr.push_back(temp1->val);
+            temp1 = temp1->next;
+        }
+
+        while(temp2 != nullptr) {
+            arr.push_back(temp2->val);
+            temp2 = temp2->next;
+        }
+
+        sort(arr.begin(), arr.end());
+
+        return convertarr2ll(arr);
     }
 };
