@@ -1,41 +1,39 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
-
-    ListNode* convertarr2ll(vector<int>& arr) {
-
-        if(arr.empty()) return nullptr;
-
-        ListNode* head = new ListNode(arr[0]);
-        ListNode* mover = head;
-
-        for(int i = 1; i < arr.size(); i++) {
-            ListNode* temp = new ListNode(arr[i]);
-            mover->next = temp;
-            mover = temp;
-        }
-
-        return head;
-    }
-
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* t1 = list1;
+        ListNode* t2 = list2;
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
 
-        vector<int> arr;
-
-        ListNode* temp1 = list1;
-        ListNode* temp2 = list2;
-
-        while(temp1 != nullptr) {
-            arr.push_back(temp1->val);
-            temp1 = temp1->next;
+        while(t1 != nullptr && t2 != nullptr){
+            if(t1 -> val < t2 ->val){
+                temp -> next = t1;
+                temp = t1;
+                t1 = t1 -> next; 
+            }else {
+                temp -> next = t2;
+                temp = t2;
+                t2 = t2 -> next;
+            }
         }
+        if(t1) temp -> next = t1;
+        else temp -> next = t2;
 
-        while(temp2 != nullptr) {
-            arr.push_back(temp2->val);
-            temp2 = temp2->next;
-        }
-
-        sort(arr.begin(), arr.end());
-
-        return convertarr2ll(arr);
+        return dummy -> next;    
     }
 };
+
+
+//two pointers
+//space -> O(1)
